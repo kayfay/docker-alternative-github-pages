@@ -1,5 +1,5 @@
 # Docker install
-Install docker on Debian
+Automated the install of docker on Debian to use manging my github pages on a seperate github account, because this one's messy and my domain points to a cleaner github account.
 
 ```
 git clone REPO
