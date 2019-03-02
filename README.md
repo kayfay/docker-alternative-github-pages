@@ -16,4 +16,4 @@ the orientation script to install a containerized docker.
 
 
 ### Why?
-There are a few ways of switching Github accounts that I could have chosen, it seamed running it in a container on Docker would be a quick and easy way to do it.
+There are a few ways of switching Github accounts that I could have chosen, it seamed running it in a container on Docker would be a quick and easy way to do it.  Visiting Http://allen.tools might be clearer.
