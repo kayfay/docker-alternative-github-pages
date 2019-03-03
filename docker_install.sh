@@ -50,8 +50,32 @@ wait $1
 apt-get -y install docker-ce docker-ce-cli containerd.io &
 wait $1
 
+# Install docker-machine
+base=https://github.com/docker/machine/releases/download/v0.16.0 &&
+  curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine &&
+  install /tmp/docker-machine /usr/local/bin/docker-machine &
+wait $1
 
-cat "Docker installed." >> "$LOG_PATH"
+# Write versions to log
+docker --version >> "$LOG_PATH"
+docker-machine version >> "$LOG_PATH"
+
+# Install bash completion scripts
+TAB_COMP_DIR="/etc/bash_completion.d"
+if [ ! -d "$TAB_COMP_DIR" ]
+then
+  mkdir "$TAB_COMP_DIR"
+fi
+
+base=https://raw.githubusercontent.com/docker/machine/v0.16.0
+for i in docker-machine-prompt.bash docker-machine-wrapper.bash docker-machine.bash
+do
+  wget "$base/contrib/completion/bash/${i}" -P /etc/bash_completion.d
+done
+
+source /etc/bash_completion.d/docker-machine-prompt.bash
+echo 'Make sure to run "source /etc/bash_completion.d/docker-machine-prompt.bash"'
+
 echo "Docker installed."
 echo 'Type "docker run hello-world" to test.'
 
