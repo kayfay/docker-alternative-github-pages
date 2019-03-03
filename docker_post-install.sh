@@ -4,9 +4,6 @@
 # the Docker daemon as a Unix socket. 
 # For additional config options see URL.
 
-# Set error on exit
-set -o errexit
-
 # Creates log files in /var/log
 LOG_DIR=/var/log/
 LOG_FILE=docker_install.log
@@ -22,7 +19,7 @@ fi
 # Add user
 echo "docker added as user with group docker"
 groupadd docker
-usermod -aG docker $USER
+usermod -a -G docker $USER
 
 echo "re-evaluate membership logout of current session (e.g., pkill -u username)"
 echo "Test with docker run hello-world"
@@ -32,6 +29,8 @@ echo "Select option"
 echo "1. Configure docker on startup."
 echo "2. Disable docker on startup."
 echo "0. Exit"
+read startup
+
 case $startup in
 1*)
   systemctl enable docker
@@ -40,7 +39,6 @@ case $startup in
   systemctl disable docker
 ;;
 *)
-  exit
 ;;
 esac
 

@@ -12,7 +12,7 @@ LOG_PATH="$LOG_DIR$LOG_FILE"
 # Test for docker install
 BIN_PATH=/usr/bin/docker
 
-if [ -f "$BIN_PATH" ]
+if [ ! -f "$BIN_PATH" ]
 then
   echo "Is docker installed, has docker_install been executed?"
   echo "docker_orientation run without docker install" >> "$LOGPATH"
@@ -50,7 +50,7 @@ docker image ls
 docker container ls --all
 
 echo "Edit files;"
-echo "alias git=docket run -ti --rm -v $(pwd):/git -v $HOME/.ssh:/root/.ssh alpine/git"
+echo "alias git=docker run -ti --rm -v $(pwd):/git -v $HOME/.ssh:/root/.ssh alpine/git"
 echo "git add ."
 echo "git status"
 echo 'git commit -m "test"'
